@@ -2,20 +2,23 @@
 {% block title %}Dashboard | Pet Adoption Center{% endblock %}
 {% block content %}
 <div class="page-heading">
-    <h1>Dashboard</h1>
-    <p>Staff overview for pets, applications, and adoption fees.</p>
+    <div>
+        <h1>Dashboard</h1>
+        <p>Staff overview for pets, applications, and adoption fees.</p>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('new_application') }}">New Application</a>
 </div>
 
-<div class="row g-3 mb-4">
-    <div class="col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body"><span>Total Pets</span><strong>{{ total_pets }}</strong></div></div></div>
-    <div class="col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body"><span>Available</span><strong>{{ available_pets }}</strong></div></div></div>
-    <div class="col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body"><span>Adopted</span><strong>{{ adopted_pets }}</strong></div></div></div>
-    <div class="col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body"><span>Applications</span><strong>{{ total_applications }}</strong></div></div></div>
-    <div class="col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body"><span>Total Fees</span><strong>${{ "%.2f"|format(total_fees) }}</strong></div></div></div>
-    <div class="col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body"><span>Average Fee</span><strong>${{ "%.2f"|format(average_fee) }}</strong></div></div></div>
+<div class="row g-3 dashboard-stats mb-4">
+    <div class="col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body"><div class="stat-icon">🐾</div><span>Total Pets</span><strong>{{ total_pets }}</strong></div></div></div>
+    <div class="col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body"><div class="stat-icon">🏠</div><span>Available</span><strong>{{ available_pets }}</strong></div></div></div>
+    <div class="col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body"><div class="stat-icon">✓</div><span>Adopted</span><strong>{{ adopted_pets }}</strong></div></div></div>
+    <div class="col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body"><div class="stat-icon">📋</div><span>Applications</span><strong>{{ total_applications }}</strong></div></div></div>
+    <div class="col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body"><div class="stat-icon">$</div><span>Total Fees</span><strong>${{ "%.2f"|format(total_fees) }}</strong></div></div></div>
+    <div class="col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body"><div class="stat-icon">~</div><span>Average Fee</span><strong>${{ "%.2f"|format(average_fee) }}</strong></div></div></div>
 </div>
 
-<div class="row g-4">
+<div class="row g-4 dashboard-lists">
     <div class="col-lg-6">
         <div class="card shadow-sm">
             <div class="card-header">Recent Applications</div>

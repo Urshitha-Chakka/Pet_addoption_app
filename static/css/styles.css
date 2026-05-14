@@ -1,6 +1,9 @@
 :root {
     --navy: #16324f;
+    --deep-navy: #10283f;
     --slate: #52677a;
+    --blue: #2563a6;
+    --blue-dark: #1d4f86;
     --soft-blue: #dbeafe;
     --pale-blue: #eef6ff;
     --border: #d6e2ee;
@@ -14,12 +17,69 @@ body {
 
 .app-navbar {
     background: var(--navy);
+    border-bottom: 1px solid rgba(219, 234, 254, .16);
+    box-shadow: 0 8px 22px rgba(16, 40, 63, .12);
+    padding: .8rem 0;
 }
 
 .navbar-brand,
 .nav-link,
 .navbar-text {
     letter-spacing: 0;
+}
+
+.navbar-brand {
+    align-items: center;
+    display: inline-flex;
+    font-weight: 800;
+    gap: .55rem;
+}
+
+.brand-icon {
+    align-items: center;
+    background: rgba(238, 246, 255, .14);
+    border: 1px solid rgba(238, 246, 255, .22);
+    border-radius: 50%;
+    display: inline-flex;
+    font-size: 1rem;
+    height: 34px;
+    justify-content: center;
+    width: 34px;
+}
+
+.app-nav-links {
+    gap: .25rem;
+    margin-left: 1.25rem;
+}
+
+.app-nav-links .nav-link {
+    border-radius: 8px;
+    color: rgba(255, 255, 255, .78);
+    font-weight: 700;
+    padding: .48rem .75rem;
+}
+
+.app-nav-links .nav-link:hover,
+.app-nav-links .nav-link:focus,
+.app-nav-links .nav-link.active {
+    background: rgba(238, 246, 255, .14);
+    color: #ffffff;
+}
+
+.staff-tools {
+    align-items: center;
+    display: flex;
+    gap: .75rem;
+}
+
+.staff-tools .navbar-text {
+    color: rgba(255, 255, 255, .8);
+    font-size: .92rem;
+}
+
+.app-main {
+    padding-bottom: 2.5rem;
+    padding-top: 2rem;
 }
 
 .card {
@@ -35,34 +95,57 @@ body {
 }
 
 .btn-primary {
-    background: #2563a6;
-    border-color: #2563a6;
+    background: var(--blue);
+    border-color: var(--blue);
+    border-radius: 8px;
+    font-weight: 700;
+    padding: .48rem .9rem;
 }
 
 .btn-primary:hover {
-    background: #1d4f86;
-    border-color: #1d4f86;
+    background: var(--blue-dark);
+    border-color: var(--blue-dark);
 }
 
 .btn-outline-primary {
-    color: #2563a6;
-    border-color: #2563a6;
+    border-color: var(--blue);
+    border-radius: 8px;
+    color: var(--blue);
+    font-weight: 700;
 }
 
 .btn-outline-primary:hover {
-    background: #2563a6;
-    border-color: #2563a6;
+    background: var(--blue);
+    border-color: var(--blue);
 }
 
 .btn-outline-danger {
-    color: #334e68;
     border-color: #8aa5bd;
+    border-radius: 8px;
+    color: #334e68;
+    font-weight: 700;
 }
 
 .btn-outline-danger:hover {
     background: #334e68;
     border-color: #334e68;
     color: white;
+}
+
+.btn-nav {
+    background: rgba(238, 246, 255, .12);
+    border: 1px solid rgba(238, 246, 255, .34);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: .88rem;
+    font-weight: 700;
+    padding: .42rem .8rem;
+}
+
+.btn-nav:hover {
+    background: rgba(238, 246, 255, .22);
+    border-color: rgba(238, 246, 255, .48);
+    color: #ffffff;
 }
 
 .alert-danger {
@@ -86,7 +169,14 @@ body {
 
 .page-heading,
 .page-actions {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.page-heading {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
 }
 
 .page-heading h1,
@@ -113,6 +203,39 @@ body {
 
 .stat-card {
     background: white;
+    box-shadow: 0 10px 24px rgba(16, 40, 63, .06);
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.stat-card::before {
+    background: var(--soft-blue);
+    content: "";
+    height: 4px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.stat-card .card-body {
+    padding: 1rem;
+}
+
+.stat-icon {
+    align-items: center;
+    background: var(--pale-blue);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--navy);
+    display: inline-flex;
+    font-size: .95rem;
+    font-weight: 800;
+    height: 34px;
+    justify-content: center;
+    margin-bottom: .8rem;
+    width: 34px;
 }
 
 .stat-card span {
@@ -125,8 +248,9 @@ body {
 .stat-card strong {
     color: var(--navy);
     display: block;
-    font-size: 1.8rem;
+    font-size: 1.72rem;
     line-height: 1.2;
+    margin-top: .2rem;
 }
 
 .status-badge {
@@ -220,12 +344,26 @@ body {
 }
 
 @media (max-width: 768px) {
+    .page-heading,
     .page-actions {
         align-items: flex-start;
         flex-direction: column;
     }
 
+    .page-heading .btn,
     .page-actions .btn {
         width: 100%;
+    }
+
+    .app-nav-links {
+        gap: .35rem;
+        margin-left: 0;
+        margin-top: .8rem;
+    }
+
+    .staff-tools {
+        align-items: stretch;
+        flex-direction: column;
+        margin-top: .75rem;
     }
 }

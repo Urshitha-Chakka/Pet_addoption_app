@@ -11,27 +11,32 @@
     {% if session.get("staff_id") %}
     <nav class="navbar navbar-expand-lg navbar-dark app-navbar">
         <div class="container">
-            <a class="navbar-brand fw-semibold" href="{{ url_for('dashboard') }}">Pet Adoption Center</a>
+            <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+                <span class="brand-icon">🐾</span>
+                <span>Pet Adoption Center</span>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('pets') }}">Pets</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('adopters') }}">Adopters</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('applications') }}">Applications</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('adoptions') }}">Adoptions</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('relationships') }}">Relationships</a></li>
+                <ul class="navbar-nav app-nav-links me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.endpoint in ['pets', 'new_pet', 'edit_pet'] %}active{% endif %}" href="{{ url_for('pets') }}">Pets</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.endpoint in ['adopters', 'new_adopter', 'edit_adopter'] %}active{% endif %}" href="{{ url_for('adopters') }}">Adopters</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.endpoint in ['applications', 'new_application', 'edit_application'] %}active{% endif %}" href="{{ url_for('applications') }}">Applications</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.endpoint == 'adoptions' %}active{% endif %}" href="{{ url_for('adoptions') }}">Adoptions</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.endpoint == 'relationships' %}active{% endif %}" href="{{ url_for('relationships') }}">Relationships</a></li>
                 </ul>
-                <span class="navbar-text me-3">{{ session.get("staff_name") }}</span>
-                <a class="btn btn-outline-light btn-sm" href="{{ url_for('logout') }}">Logout</a>
+                <div class="staff-tools">
+                    <span class="navbar-text">{{ session.get("staff_name") }}</span>
+                    <a class="btn btn-nav" href="{{ url_for('logout') }}">Logout</a>
+                </div>
             </div>
         </div>
     </nav>
     {% endif %}
 
-    <main class="container py-4">
+    <main class="container app-main">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
