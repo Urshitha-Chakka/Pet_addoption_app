@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Relationships | Pet Adoption Center{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <h1>Relationships</h1>
+    <p>Database relationships between pets, adopters, applications, and adoptions.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-header">Pets to Applications and Adoptions</div>
+            <div class="card-body">
+                {% for pet in pets %}
+                <div class="relationship-block">
+                    <h2>{{ pet.name }} <span>{{ pet.status }}</span></h2>
+                    <p>Applications: {{ pet.applications|length }} | Adoptions: {{ pet.adoptions|length }}</p>
+                    {% for app in pet.applications %}
+                    <div class="small text-muted">Application #{{ app.id }} by {{ app.adopter.full_name }} - {{ app.status }}</div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-header">Adopters to Applications and Adoptions</div>
+            <div class="card-body">
+                {% for adopter in adopters %}
+                <div class="relationship-block">
+                    <h2>{{ adopter.full_name }}</h2>
+                    <p>Applications: {{ adopter.applications|length }} | Adoptions: {{ adopter.adoptions|length }}</p>
+                    {% for app in adopter.applications %}
+                    <div class="small text-muted">Application #{{ app.id }} for {{ app.pet.name }} - {{ app.status }}</div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header">Finalized Adoption Links</div>
+            <div class="card-body">
+                {% if adoptions %}
+                {% for adoption in adoptions %}
+                <div class="relationship-line">
+                    Adoption #{{ adoption.id }} links Application #{{ adoption.application_id }},
+                    Pet {{ adoption.pet.name }}, and Adopter {{ adoption.adopter.full_name }}.
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="text-muted mb-0">No adoption records yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

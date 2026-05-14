@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit Application' if application else 'Add Application' }} | Pet Adoption Center{% endblock %}
+{% block content %}
+<div class="form-page">
+    <h1>{{ 'Edit Application' if application else 'Add Application' }}</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Pet</label>
+                        <select class="form-select" name="pet_id" required>
+                            <option value="">Choose pet</option>
+                            {% for pet in pets %}
+                            <option value="{{ pet.id }}" {% if application and application.pet_id == pet.id %}selected{% endif %}>{{ pet.name }} - {{ pet.status }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Adopter</label>
+                        <select class="form-select" name="adopter_id" required>
+                            <option value="">Choose adopter</option>
+                            {% for adopter in adopters %}
+                            <option value="{{ adopter.id }}" {% if application and application.adopter_id == adopter.id %}selected{% endif %}>{{ adopter.full_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" name="status" required>
+                            {% for status in ["Pending", "Approved", "Rejected"] %}
+                            <option value="{{ status }}" {% if application and application.status == status %}selected{% endif %}>{{ status }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="4" required>{{ application.notes if application else '' }}</textarea>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <a class="btn btn-outline-secondary" href="{{ url_for('applications') }}">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

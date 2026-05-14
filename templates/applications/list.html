@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Applications | Pet Adoption Center{% endblock %}
+{% block content %}
+<div class="page-actions">
+    <div><h1>Applications</h1><p>Review adopter applications and finalize approved adoptions.</p></div>
+    <a class="btn btn-primary" href="{{ url_for('new_application') }}">Add Application</a>
+</div>
+<div class="card shadow-sm">
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead><tr><th>ID</th><th>Pet</th><th>Adopter</th><th>Status</th><th>Notes</th><th>Adoption</th><th></th></tr></thead>
+            <tbody>
+                {% for application in applications %}
+                <tr>
+                    <td>#{{ application.id }}</td>
+                    <td>{{ application.pet.name }}</td>
+                    <td>{{ application.adopter.full_name }}</td>
+                    <td><span class="badge status-badge">{{ application.status }}</span></td>
+                    <td>{{ application.notes }}</td>
+                    <td>{{ "Finalized" if application.adoption else "Not finalized" }}</td>
+                    <td class="text-end action-cell">
+                        {% if not application.adoption and application.pet.status != "Adopted" %}
+                        <form class="d-inline" method="post" action="{{ url_for('finalize_adoption', application_id=application.id) }}">
+                            <button class="btn btn-sm btn-primary" onclick="return confirm('Finalize this adoption transaction?')">Finalize</button>
+                        </form>
+                        {% endif %}
+                        <a class="btn btn-sm btn-outline-primary" href="{{ url_for('edit_application', application_id=application.id) }}">Edit</a>
+                        <form class="d-inline" method="post" action="{{ url_for('delete_application', application_id=application.id) }}">
+                            <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this application?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td class="text-muted text-center py-4" colspan="7">No applications found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

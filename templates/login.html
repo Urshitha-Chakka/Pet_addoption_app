@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Login | Pet Adoption Center{% endblock %}
+{% block content %}
+<div class="login-shell">
+    <div class="card login-card shadow-sm">
+        <div class="card-body p-4">
+            <div class="text-center mb-4">
+                <div class="pet-mark">🐾</div>
+                <h1 class="h4 mb-1">Staff Login</h1>
+                <p class="text-muted mb-0">Pet Adoption Center Management System</p>
+            </div>
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input class="form-control" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input class="form-control" type="password" name="password" required>
+                </div>
+                <button class="btn btn-primary w-100" type="submit">Login</button>
+            </form>
+            <div class="small text-muted mt-3">Demo login: admin / admin123</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

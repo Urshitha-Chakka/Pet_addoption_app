@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Adopters | Pet Adoption Center{% endblock %}
+{% block content %}
+<div class="page-actions">
+    <div><h1>Adopters</h1><p>Manage adopter contact records.</p></div>
+    <a class="btn btn-primary" href="{{ url_for('new_adopter') }}">Add Adopter</a>
+</div>
+<div class="card shadow-sm">
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Address</th><th>Applications</th><th></th></tr></thead>
+            <tbody>
+                {% for adopter in adopters %}
+                <tr>
+                    <td class="fw-semibold">{{ adopter.full_name }}</td>
+                    <td>{{ adopter.email }}</td>
+                    <td>{{ adopter.phone }}</td>
+                    <td>{{ adopter.address }}</td>
+                    <td>{{ adopter.applications|length }}</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-primary" href="{{ url_for('edit_adopter', adopter_id=adopter.id) }}">Edit</a>
+                        <form class="d-inline" method="post" action="{{ url_for('delete_adopter', adopter_id=adopter.id) }}">
+                            <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this adopter?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td class="text-muted text-center py-4" colspan="6">No adopters found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

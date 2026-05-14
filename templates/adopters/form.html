@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit Adopter' if adopter else 'Add Adopter' }} | Pet Adoption Center{% endblock %}
+{% block content %}
+<div class="form-page">
+    <h1>{{ 'Edit Adopter' if adopter else 'Add Adopter' }}</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post">
+                <div class="row g-3">
+                    <div class="col-md-6"><label class="form-label">First Name</label><input class="form-control" name="first_name" value="{{ adopter.first_name if adopter else '' }}" required></div>
+                    <div class="col-md-6"><label class="form-label">Last Name</label><input class="form-control" name="last_name" value="{{ adopter.last_name if adopter else '' }}" required></div>
+                    <div class="col-md-6"><label class="form-label">Email</label><input class="form-control" type="email" name="email" value="{{ adopter.email if adopter else '' }}" required></div>
+                    <div class="col-md-6"><label class="form-label">Phone</label><input class="form-control" name="phone" value="{{ adopter.phone if adopter else '' }}" required></div>
+                    <div class="col-12"><label class="form-label">Address</label><input class="form-control" name="address" value="{{ adopter.address if adopter else '' }}" required></div>
+                </div>
+                <div class="mt-4">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <a class="btn btn-outline-secondary" href="{{ url_for('adopters') }}">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit Pet' if pet else 'Add Pet' }} | Pet Adoption Center{% endblock %}
+{% block content %}
+<div class="form-page">
+    <h1>{{ 'Edit Pet' if pet else 'Add Pet' }}</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post">
+                <div class="row g-3">
+                    <div class="col-md-6"><label class="form-label">Name</label><input class="form-control" name="name" value="{{ pet.name if pet else '' }}" required></div>
+                    <div class="col-md-6"><label class="form-label">Species</label><input class="form-control" name="species" value="{{ pet.species if pet else '' }}" required></div>
+                    <div class="col-md-6"><label class="form-label">Breed</label><input class="form-control" name="breed" value="{{ pet.breed if pet else '' }}" required></div>
+                    <div class="col-md-3"><label class="form-label">Age</label><input class="form-control" type="number" min="0" name="age" value="{{ pet.age if pet else '' }}" required></div>
+                    <div class="col-md-3"><label class="form-label">Adoption Fee</label><input class="form-control" type="number" min="0" step="0.01" name="adoption_fee" value="{{ pet.adoption_fee if pet else '' }}" required></div>
+                    <div class="col-md-6">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" name="status" required>
+                            {% for status in ["Available", "Pending", "Adopted"] %}
+                            <option value="{{ status }}" {% if pet and pet.status == status %}selected{% endif %}>{{ status }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <a class="btn btn-outline-secondary" href="{{ url_for('pets') }}">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

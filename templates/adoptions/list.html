@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Adoptions | Pet Adoption Center{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <h1>Adoptions</h1>
+    <p>Finalized adoption records created through the transaction workflow.</p>
+</div>
+<div class="card shadow-sm">
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead><tr><th>ID</th><th>Pet</th><th>Adopter</th><th>Application</th><th>Date</th><th>Fee Paid</th></tr></thead>
+            <tbody>
+                {% for adoption in adoptions %}
+                <tr>
+                    <td>#{{ adoption.id }}</td>
+                    <td>{{ adoption.pet.name }}</td>
+                    <td>{{ adoption.adopter.full_name }}</td>
+                    <td>#{{ adoption.application_id }}</td>
+                    <td>{{ adoption.adoption_date }}</td>
+                    <td>${{ "%.2f"|format(adoption.fee_paid) }}</td>
+                </tr>
+                {% else %}
+                <tr><td class="text-muted text-center py-4" colspan="6">No finalized adoptions found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
