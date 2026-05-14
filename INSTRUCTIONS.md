@@ -2,7 +2,7 @@
 
 ## System Purpose
 
-This application is a staff-facing Pet Adoption Center Management System. It is designed for staff/admin users to manage pets, adopters, adoption applications, and finalized adoption records.
+This application is a staff-facing Pet Adoption Center Management System. It is designed for staff/admin users to manage pets, adopters, adoption applications, and finalized adoption records in one organized system.
 
 ## Accessing the Login Page
 
@@ -11,7 +11,6 @@ Open the application in a web browser and go to:
 ```text
 http://127.0.0.1:5000
 ```
-
 The system will direct you to the admin login page.
 
 ## Default Admin Credentials
