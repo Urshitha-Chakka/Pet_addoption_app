@@ -29,8 +29,8 @@ A beginner-friendly Flask full-stack DBMS Project 3 application for staff/admin 
 
 Default demo account:
 
-- Username: `admin`
-- Password: `admin123`
+- Username: `admin1`
+- Password: `pass123`
 
 ## How to Run
 

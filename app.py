@@ -93,7 +93,7 @@ def validate_required(form, fields):
     errors = []
     for field, label in fields:
         if is_blank(form.get(field)):
-            errors.append(f"{label} is required.")
+            errors.append(f"{label} is required. Please enter a value before saving.")
     return errors
 
 
@@ -112,16 +112,16 @@ def validate_pet_form(form):
     try:
         age = int(form.get("age", ""))
         if age < 0:
-            errors.append("Age cannot be negative.")
+            errors.append("Pet age cannot be negative. Enter 0 or a positive whole number.")
     except ValueError:
-        errors.append("Age must be a whole number.")
+        errors.append("Pet age must be a whole number, such as 0, 2, or 5.")
 
     try:
         adoption_fee = float(form.get("adoption_fee", ""))
         if adoption_fee < 0:
-            errors.append("Adoption fee cannot be negative.")
+            errors.append("Adoption fee cannot be negative. Enter 0.00 or a positive amount.")
     except ValueError:
-        errors.append("Adoption fee must be a number.")
+        errors.append("Adoption fee must be a valid number, such as 75 or 125.50.")
 
     return errors
 
@@ -138,7 +138,7 @@ def validate_adopter_form(form):
         ],
     )
     if not is_blank(form.get("email")) and "@" not in form.get("email"):
-        errors.append("Email must contain @.")
+        errors.append("Email address is invalid. Please include @, such as name@example.com.")
     return errors
 
 
