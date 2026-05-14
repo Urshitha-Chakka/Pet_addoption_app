@@ -2,28 +2,93 @@
 
 ## First Normal Form (1NF)
 
-Each table uses atomic fields. For example, pet information is stored as separate fields such as name, species, breed, age, status, and adoption fee. Repeating groups are avoided.
+The database satisfies First Normal Form because all tables contain atomic values and each column stores only a single piece of information. Repeating groups and multi-valued attributes are avoided.
+
+For example, the `pets` table stores pet information in separate columns such as:
+- pet_name
+- species
+- breed
+- gender
+- age
+- adoption_status
+
+Instead of storing multiple breeds, statuses, or adopter information inside one column, each value is stored individually. This makes the data easier to search, update, and manage.
+
+---
 
 ## Second Normal Form (2NF)
 
-Each table has a single-column primary key, and all non-key columns depend on that table's primary key. For example, adopter email, phone, and address depend only on the adopter record.
+The database satisfies Second Normal Form because every table uses a single-column primary key, and all non-key attributes depend entirely on that key.
+
+For example:
+- In the `adopters` table, fields such as email, phone number, city, and state depend only on the `adopter_id`.
+- In the `pets` table, pet attributes such as breed, species, and age depend only on the `pet_id`.
+
+There are no partial dependencies because the tables do not use composite primary keys for storing unrelated attributes.
+
+---
 
 ## Third Normal Form (3NF)
 
-The design avoids storing derived or unrelated data in the wrong table. Pet details are stored in the pet table, adopter details are stored in the adopter table, and application details connect a pet to an adopter.
+The database satisfies Third Normal Form because non-key attributes depend only on the primary key and not on other non-key attributes.
+
+Information is separated into appropriate tables to reduce redundancy and improve data integrity.
+
+Examples:
+- Pet details are stored only in the `pets` table.
+- Adopter details are stored only in the `adopters` table.
+- Application information is stored in the `applications` table.
+- Adoption transaction records are stored separately in the `adoptions` table.
+
+This design prevents duplicate data and reduces update, insertion, and deletion anomalies.
+
+For example:
+- Updating an adopter phone number only requires changing one record in the `adopters` table.
+- Pet information does not need to be repeated inside every application record.
+- Removing an application does not delete the pet or adopter information from the database.
+
+---
 
 ## Relationship Design
 
+The application uses relational database relationships to connect the different entities in the system.
+
+### Relationships Included
+
 - One pet can have many applications.
 - One adopter can submit many applications.
-- One application belongs to one pet and one adopter.
-- One finalized adoption is linked to one application.
-- One finalized adoption also references the adopted pet and adopter.
+- Each application belongs to one pet and one adopter.
+- One finalized adoption belongs to one application.
+- One adoption record references the adopted pet and adopter.
 
-## Why Separate Applications and Adoptions?
+These relationships are maintained using primary keys and foreign keys to ensure referential integrity.
 
-Applications represent the request or review process. Adoptions represent completed adoption transactions. Keeping them separate prevents mixing pending requests with finalized adoption records.
+---
+
+## Why Applications and Adoptions Are Separate
+
+Applications and adoptions are stored in separate tables because they represent different stages of the adoption process.
+
+The `applications` table is used for:
+- pending requests
+- approved requests
+- rejected requests
+
+The `adoptions` table is used only for completed adoptions.
+
+Keeping them separate helps maintain clearer business logic and prevents incomplete or rejected applications from being mixed with finalized adoption records.
+
+---
 
 ## Transaction Requirement
 
-Finalizing an adoption changes multiple tables. The app uses one database transaction so the adoption record, pet status, and application status remain consistent.
+Finalizing an adoption requires updating multiple tables at the same time.
+
+When an adoption is finalized:
+1. A new adoption record is created.
+2. The selected pet status changes to "Adopted."
+3. The related application status changes to "Approved."
+
+These operations are handled using a single database transaction. If one step fails, the entire transaction is rolled back to prevent inconsistent or incomplete data from being stored in the database.
+
+This helps maintain data integrity throughout the application.
